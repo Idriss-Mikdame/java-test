@@ -112,6 +112,23 @@ public class EmployeeDAOImplm implements EmployeeDAO {
 
     @Override
     public void deleteByid(int id) {
+        Connection con =  DBOConnection.getConnection();
+        if (con == null) {
+            return;
+        }
+        String query = "DELETE FROM employee WHERE id=?";
+        try (PreparedStatement preparedStatement = con.prepareStatement(query)){
+            preparedStatement.setInt(1, id);
 
+    preparedStatement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

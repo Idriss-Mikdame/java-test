@@ -12,11 +12,12 @@ public class HelloServlet {
     public static void main(String[] args) {
         // محاولة الاتصال بقاعدة البيانات
         EmployeeDAO employeeDAO = new EmployeeDAOImplm();
-        Employee employee = new Employee(0,"omar","casa","police",5000);
-        //employeeDAO.save(employee);
+        Employee employee = new Employee(0,"idriss","BM","CHEF",10000);
+        employeeDAO.save(employee);
         //employeeDAO.findAll().forEach(System.out::println);
         //System.out.println("Employee saved");
-       Employee emp = employeeDAO.findById(3);
-        System.out.println(emp);
+       //Employee emp = employeeDAO.findById(3);
+        //System.out.println(emp);
+
     }
 }
