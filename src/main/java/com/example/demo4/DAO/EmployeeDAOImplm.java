@@ -39,6 +39,29 @@ public class EmployeeDAOImplm implements EmployeeDAO {
 
     @Override
     public Employee findById(int id) {
+        Connection con =  DBOConnection.getConnection();
+
+        if (con == null) {
+            return null;
+        }
+        String query = "select * from employee where id=?";
+        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Employee employee=new Employee(resultSet.getInt("id"),resultSet.getString("name"),resultSet.getString("city"),resultSet.getString("jbob"),
+                        resultSet.getDouble("salary"));
+           return employee;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return null;
     }
 
